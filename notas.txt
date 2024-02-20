@@ -1,0 +1,24 @@
+<--- Configuración de entorno --->
+
+pip install virtualenv
+
+
+virtualenv <nombre>
+
+.\pepe\Scripts\activate
+
+pip install django
+
+<--- inicialización del proyecto -->
+django-admin startproject core .
+
+<--- crear superusuario -->
+py manage.py createsuperuser
+
+
+<--- aplicaciones ->
+Pedidos
+Inventarios <-
+Platillos
+
+django-admin startapp <nombre-aplicacion>
