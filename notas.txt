@@ -22,3 +22,18 @@ Inventarios <-
 Platillos
 
 django-admin startapp <nombre-aplicacion>
+
+
+
+Paquetes nuevos
+1. cors-headers
+2. rest-framework JSON(Javascript Object Notation) 
+{
+    [
+        clave: valor,
+    ]
+}
+3. whitenoise - Este paquete sirve 
+4. gunicorn - Apache - Nginx
+
+pip install django-cors-headers djangorestframework whitenoise gunicorn
