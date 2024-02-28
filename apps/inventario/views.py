@@ -1,10 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-
+from django.shortcuts import get_list_or_404, get_object_or_404
+# from django.shortcuts import render
 from apps.inventario.serializer import IngredientesSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Ingredientes
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 
@@ -140,10 +141,32 @@ class IngredientesController(APIView):
         # Metodo HTTP
         # print(request.method)
         # data
-        #print(request.data)
+        # print(request.data)
         data = request.data
         serializer = IngredientesSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response("Se guardó el registro")
         return Response(serializer.errors)
+
+
+class DetalleIngredienteCotroller(APIView):
+    def get(self, request, id):
+        ingrediente = get_object_or_404(Ingredientes, id=id)
+        serializer = IngredientesSerializer(ingrediente)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        ingrendiente = Ingredientes.objects.get(id=id)
+        data = request.data
+        serializer = IngredientesSerializer(
+            ingrendiente, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Se ha actualizado el registro")
+        return Response(serializer.errors)
+
+    def delete(self, request, id):
+        ingrediente = Ingredientes.objects.get(id=id)
+        ingrediente.delete()
+        return Response("Se ha eliminado el registro")
