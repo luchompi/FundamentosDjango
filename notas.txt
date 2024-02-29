@@ -37,3 +37,11 @@ Paquetes nuevos
 4. gunicorn - Apache - Nginx
 
 pip install django-cors-headers djangorestframework whitenoise gunicorn
+
+
+
+
+
+Tabla de recetas:
+1. nombre
+2. descripcion

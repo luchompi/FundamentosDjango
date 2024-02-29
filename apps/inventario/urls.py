@@ -13,6 +13,8 @@ urlpatterns = [
     path('', views.IngredientesController.as_view()),
     path('ingrediente/<int:id>/', views.DetalleIngredienteCotroller.as_view()),
     # localhost:8000/inventario/ingrediente/3000/
+    path('recetas/',views.RecetasController.as_view()),
+    path('recetas/<int:id>/',views.DetalleRecetaController.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -25,3 +25,13 @@ class Ingredientes(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class Recetas(models.Model):
+    nombre = models.CharField(max_length=150, unique=True, error_messages={
+        'unique': 'La receta ya fue creada'
+    })
+    descripcion = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nombre

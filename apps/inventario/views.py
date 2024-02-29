@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
 # from django.shortcuts import render
-from apps.inventario.serializer import IngredientesSerializer
+from apps.inventario.serializer import IngredientesSerializer,RecetasSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Ingredientes
+from .models import Ingredientes,Recetas
 from django.shortcuts import get_object_or_404
 # Create your views here.
 
@@ -169,4 +169,38 @@ class DetalleIngredienteCotroller(APIView):
     def delete(self, request, id):
         ingrediente = Ingredientes.objects.get(id=id)
         ingrediente.delete()
+        return Response("Se ha eliminado el registro")
+    
+class RecetasController(APIView):
+    def get(self,request):
+        recetas = Recetas.objects.all()
+        serializer = RecetasSerializer(recetas,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        datos = request.data
+        serializer = RecetasSerializer(data=datos) 
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Se guardó el registro")
+        return Response(serializer.errors)
+
+class DetalleRecetaController(APIView):
+    def get(self,request,id):
+        receta = Recetas.objects.get(id=id)
+        serializer = RecetasSerializer(receta)
+        return Response(serializer.data)
+    
+    def put(self,request,id):
+        receta = Recetas.objects.get(id=id)
+        data = request.data
+        serializer = RecetasSerializer(receta,data=data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Se ha actualizado el registro")
+        return Response(serializer.errors)
+    
+    def delete(self,request,id):
+        receta = Recetas.objects.get(id=id)
+        receta.delete()
         return Response("Se ha eliminado el registro")
